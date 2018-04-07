@@ -1,12 +1,16 @@
 package com.example.android.uidemo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Honey on 15-Jun-16.
  */
-public class ListContent {
+public class ListContent implements Parcelable{
     //String name,salary;
+
     String name;
     String Timestamp, First_Name, Last_Name,
             Contact_Number,
@@ -47,6 +51,40 @@ public class ListContent {
         this.TrackingNo = TrackingNo;
         this.name = this.First_Name + " " + this.getLast_Name();
     }
+
+    protected ListContent(Parcel in) {
+        name = in.readString();
+        Timestamp = in.readString();
+        First_Name = in.readString();
+        Last_Name = in.readString();
+        Contact_Number = in.readString();
+        City = in.readString();
+        State = in.readString();
+        Pin_Code = in.readString();
+        Email_ID = in.readString();
+        Item_Purchased = in.readString();
+        Order_Description = in.readString();
+        Mode_Of_Payment = in.readString();
+        Total_Quantity = in.readString();
+        Total_Amount = in.readString();
+        Status = in.readString();
+        Company = in.readString();
+        TrackingNo = in.readString();
+        Address = in.readString();
+        Landmark = in.readString();
+    }
+
+    public static final Creator<ListContent> CREATOR = new Creator<ListContent>() {
+        @Override
+        public ListContent createFromParcel(Parcel in) {
+            return new ListContent(in);
+        }
+
+        @Override
+        public ListContent[] newArray(int size) {
+            return new ListContent[size];
+        }
+    };
 
     public String getTimestamp() {
         return Timestamp;
@@ -190,5 +228,33 @@ public class ListContent {
 
     public void setTrackingNo(String trackingNo) {
         TrackingNo = trackingNo;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(Timestamp);
+        parcel.writeString(First_Name);
+        parcel.writeString(Last_Name);
+        parcel.writeString(Contact_Number);
+        parcel.writeString(City);
+        parcel.writeString(State);
+        parcel.writeString(Pin_Code);
+        parcel.writeString(Email_ID);
+        parcel.writeString(Item_Purchased);
+        parcel.writeString(Order_Description);
+        parcel.writeString(Mode_Of_Payment);
+        parcel.writeString(Total_Quantity);
+        parcel.writeString(Total_Amount);
+        parcel.writeString(Status);
+        parcel.writeString(Company);
+        parcel.writeString(TrackingNo);
+        parcel.writeString(Address);
+        parcel.writeString(Landmark);
     }
 }

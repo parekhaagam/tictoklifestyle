@@ -11,6 +11,7 @@ import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,7 +51,7 @@ public class DashboardFragment extends Fragment {
     TextView Search;
     String data, searchQuery;
     TextWatcher textWatcher;
-    //SwipeRefreshLayout swipeRefreshLayout;
+    SwipeRefreshLayout swipeRefreshLayout;
     WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
     View rootView;
     FloatingActionButton fab;
@@ -200,7 +201,7 @@ public class DashboardFragment extends Fragment {
         //1L0xk_gAOJ7kpaDIUZZ29-CyCO3qB8kfAEdMTdLmh9qA real
         // url https://script.google.com/macros/s/AKfycbzGvKKUIaqsMuCj7-A2YRhR-f7GZjl4kSxSN1YyLkS01_CfiyE/exec?
         //   id=1L0xk_gAOJ7kpaDIUZZ29-CyCO3qB8kfAEdMTdLmh9qA&sheet=Sheet1
-        Call<SheetContent> call = retrofitInterface.getData("1L0xk_gAOJ7kpaDIUZZ29-CyCO3qB8kfAEdMTdLmh9qA");
+        Call<SheetContent> call = retrofitInterface.getData("1L0xk_gAOJ7kpaDIUZZ29-CyCO3qB8kfAEdMTdLmh9qA","Sheet1");
         call.enqueue(new Callback<SheetContent>() {
 
             @Override

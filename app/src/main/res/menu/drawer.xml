@@ -11,7 +11,7 @@
             android:id="@+id/navigation_item_images"
             android:icon="@drawable/ic_list"
             android:title="@string/nav_item_list" />
-        <item
+      <!--  <item
             android:id="@+id/navigation_item_location"
             android:icon="@drawable/ic_show_chart"
             android:title="Analysis" />
@@ -23,7 +23,7 @@
         <item
             android:id="@+id/navigation_pincode_list"
             android:icon="@drawable/ic_show_chart"
-            android:title="Pin Code" />
+            android:title="Pin Code" />-->
 
     </group>
 

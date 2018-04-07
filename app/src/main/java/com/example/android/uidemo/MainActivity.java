@@ -121,7 +121,7 @@ public class MainActivity extends ActionBarActivity {
                         updateDisplay(listFragment, list, 1);
                         break;
 
-                    case R.id.navigation_item_location:
+                   /* case R.id.navigation_item_location:
                         updateDisplay(analysisFragment, analysis, 2);
                         break;
                     case R.id.navigation_deliver_status:
@@ -131,7 +131,7 @@ public class MainActivity extends ActionBarActivity {
                     case R.id.navigation_pincode_list:
                         //updateDisplay(new AnalysisFragment());
                         updateDisplay(pinCodeFragment, status, 3);
-                        break;
+                        break;*/
 
                 }
 

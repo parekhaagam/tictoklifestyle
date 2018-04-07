@@ -23,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
@@ -55,7 +56,11 @@ public class Detail extends ActionBarActivity {
     TextView tvBuyingPrice;
     TextView tvCityState;
     TextView tvShowMore;
+    ImageView ivWhatsAppSend;
     String TrackingNo;
+    TextView tvAddres;
+    TextView tvAddres2;
+    TextView pinCode;
     TextView FEDEXCOD;
     TextView DELHIVERYCOD;
     TextView GETCOD;
@@ -117,6 +122,7 @@ public class Detail extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -134,6 +140,14 @@ public class Detail extends ActionBarActivity {
         tvBuyingPrice = (TextView) findViewById(R.id.tvBuyingPrice);
         tvCityState = (TextView) findViewById(R.id.tvCityState);
         tvShowMore = (TextView) findViewById(R.id.ShowMore);
+
+        ivWhatsAppSend = (ImageView) findViewById(R.id.whatsAppSend);
+
+        tvAddres = (TextView) findViewById(R.id.tvAddres);
+        tvAddres2 = (TextView) findViewById(R.id.tvAddres2);
+        pinCode = (TextView) findViewById(R.id.tvPinCode);
+
+
         CODTable = (TableLayout) findViewById(R.id.CODTable);
         FEDEXCOD = (TextView) findViewById(R.id.FEDEXCOD);
         DELHIVERYCOD = (TextView) findViewById(R.id.DELHIVERYCOD);
@@ -255,7 +269,35 @@ public class Detail extends ActionBarActivity {
         int baseprice = Integer.parseInt(listContent.getTotal_Amount()) - 150;
         tvBuyingPrice.setText("₹" + baseprice);
         Log.i("Address1", listContent.getAddress());
-        //tvAddress1.setText(listContent.getAddress());
+        tvAddres.setText(listContent.getAddress());
+        tvAddres2.setText(listContent.getLandmark());
+        pinCode.setText(listContent.getPin_Code());
+
+        ivWhatsAppSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(listContent.getTrackingNo() != null && !listContent.getTrackingNo().isEmpty()) {
+                    Intent sendIntent = new Intent("android.intent.action.MAIN");
+                    sendIntent.putExtra("jid", listContent.getContact_Number() + "@s.whatsapp.net");
+
+                    String message = "";
+                    if (FedEx.isChecked())
+                        message = "https://www.fedex.com/apps/fedextrack/?action=track&tracknumbers=" + listContent.getTrackingNo().trim() + "&locale=en_IN&cntry_code=in";
+                    else if (Delhivery.isChecked()) {
+                        message = "https://track.delhivery.com/p/" + listContent.getTrackingNo().trim();
+
+                    }
+
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.setPackage("com.whatsapp");
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+                }
+            }
+        });
+
         tvCityState.setText(listContent.getCity() + "," + listContent.getState());
         TrackingNo = listContent.getTrackingNo();
 
