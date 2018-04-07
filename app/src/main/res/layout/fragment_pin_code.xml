@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.android.uidemo.PinCodeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:id="@+id/pinCodeText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Enter PIN Code"
+        android:paddingTop="150dp"
+        android:gravity="center|top"
+
+         />
+
+
+    <TableLayout
+        android:id="@+id/CODTable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/pinCodeText"
+        android:paddingTop="5dp"
+        android:stretchColumns="1"
+        android:visibility="gone">
+
+        <TableRow android:background="@drawable/border">
+
+            <TextView
+                android:layout_column="1"
+                android:fontFamily="sans-serif-condensed"
+                android:padding="3dip"
+                android:text="Company"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="COD AVAILABLITY"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow android:background="@drawable/border">
+
+            <TextView
+                android:layout_column="1"
+                android:cursorVisible="false"
+                android:fontFamily="sans-serif-condensed"
+                android:padding="3dip"
+                android:text="FEDEX:"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/FEDEXCOD"
+                android:gravity="right"
+                android:padding="3dip"
+                android:textColor="#000" />
+        </TableRow>
+
+        <TableRow android:background="@drawable/border">
+
+            <TextView
+                android:layout_column="1"
+                android:fontFamily="sans-serif-condensed"
+                android:padding="3dip"
+                android:text="DELHIVERY"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/DELHIVERYCOD"
+                android:gravity="right"
+                android:padding="3dip"
+                android:textColor="#000" />
+
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>
