@@ -61,6 +61,7 @@ public class Detail extends ActionBarActivity {
     TextView tvAddres;
     TextView tvAddres2;
     TextView pinCode;
+    TextView tvTrackingNo;
     TextView FEDEXCOD;
     TextView DELHIVERYCOD;
     TextView GETCOD;
@@ -147,7 +148,7 @@ public class Detail extends ActionBarActivity {
         tvAddres2 = (TextView) findViewById(R.id.tvAddres2);
         pinCode = (TextView) findViewById(R.id.tvPinCode);
 
-
+        tvTrackingNo = (TextView) findViewById(R.id.tvTrackingNo);
         CODTable = (TableLayout) findViewById(R.id.CODTable);
         FEDEXCOD = (TextView) findViewById(R.id.FEDEXCOD);
         DELHIVERYCOD = (TextView) findViewById(R.id.DELHIVERYCOD);
@@ -278,8 +279,7 @@ public class Detail extends ActionBarActivity {
             public void onClick(View view) {
 
                 if(listContent.getTrackingNo() != null && !listContent.getTrackingNo().isEmpty()) {
-                    Intent sendIntent = new Intent("android.intent.action.MAIN");
-                    sendIntent.putExtra("jid", listContent.getContact_Number() + "@s.whatsapp.net");
+                
 
                     String message = "";
                     if (FedEx.isChecked())
@@ -289,11 +289,17 @@ public class Detail extends ActionBarActivity {
 
                     }
 
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, message);
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.setPackage("com.whatsapp");
-                    sendIntent.setType("text/plain");
-                    startActivity(sendIntent);
+                String smsNumber = listContent.getContact_Number(); // E164 format without '+' sign
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.setType("text/plain");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+                sendIntent.putExtra("jid", smsNumber + "@s.whatsapp.net"); //phone number without "+" prefix
+                sendIntent.setPackage("com.whatsapp");
+                if (intent.resolveActivity(getActivity().getPackageManager()) == null) {
+                    Toast.makeText(this, "Error/n" + e.toString(), Toast.LENGTH_SHORT).show();
+                    return;    
+                }
+                startActivity(sendIntent);
                 }
             }
         });
@@ -397,7 +403,12 @@ public class Detail extends ActionBarActivity {
 
     public void changeStatus(boolean State) {
         tvBuyingPrice.setEnabled(State);
+        tvTrackingNo.setEnabled(State);
 
+        if(State == false){
+            listContent = databaseAdapter.getAllData(this.phone);
+            databaseAdapter.Update(this.phone, this.listContent.getCompany(), tvTrackingNo.getText(), listContent.getTimestamp())
+        }
     }
 
     @Override
